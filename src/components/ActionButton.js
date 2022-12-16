@@ -1,0 +1,47 @@
+import {TouchableOpacity, Text, StyleSheet, Image} from "react-native";
+import { useFonts } from 'expo-font';
+
+const ActionButton = ({text, icon, action}) => {
+
+    const [loaded] = useFonts({
+        'beau': require('../../assets/fonts/beau.ttf'),
+      });
+
+      if (!loaded) {
+        return null;
+      }
+
+    return (
+        <TouchableOpacity onPress={action} style={styles.button}>
+            {icon && <Image resizeMode="contain" style={styles.icon} source={icon}/>}
+            <Text style={styles.text}>{text}</Text>
+        </TouchableOpacity>
+    )
+}
+
+export default ActionButton;
+
+const styles = StyleSheet.create({
+    button: {
+        width: "90%",
+        height: 50,
+        backgroundColor: "#000000",
+        alignSelf: "center",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "row",
+        borderRadius: "10px",
+        marginTop: 20
+    },
+    text: {
+        fontWeight: "900",
+        fontSize:20,
+        color: "white",
+        fontFamily: 'beau',
+    },
+    icon: {
+        width: 20,
+        height: 20,
+        marginRight: 12
+    }
+})
