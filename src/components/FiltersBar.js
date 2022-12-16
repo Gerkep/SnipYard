@@ -1,7 +1,18 @@
 import { View, Image, Text, StyleSheet } from "react-native";
 import filterIcon from "../../assets/filterIcon.png";
+import { useFonts } from "expo-font";
 
 const FiltersBar = () => {
+
+    const [loaded] = useFonts({
+        'beau': require('../../assets/fonts/beau.ttf'),
+        'Lato-Regular': require('../../assets/fonts/Lato-Regular.ttf'),
+      });
+
+      if (!loaded) {
+        return null;
+      }
+
     return (
         <View style={styles.bar}>
             <Image style={styles.icon} resizeMode="contain" source={filterIcon}/>
@@ -27,6 +38,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 15,
-        marginLeft: 10
+        marginLeft: 10,
+        fontFamily: "Lato-Regular",
     }
 })

@@ -8,6 +8,7 @@ import buyIcon from "../../assets/buyIcon.png";
 const ThankYou = () => {
     const [loaded] = useFonts({
         'beau': require('../../assets/fonts/beau.ttf'),
+        'Lato-Regular': require('../../assets/fonts/Lato-Regular.ttf'),
       });
 
       if (!loaded) {
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         width: "80%",
         fontSize: 18,
-  
+        fontFamily: "Lato-Regular",
         marginTop: 10,
     },
     preview: {

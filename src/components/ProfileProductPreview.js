@@ -1,9 +1,16 @@
 import {View, Text, StyleSheet, Image, TouchableOpacity} from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useFonts } from "expo-font";
+
 
 const ProfileProductPreview = ({price, image, brand}) => {
 
     const navigation = useNavigation();
+    const [loaded] = useFonts({
+        'beau': require('../../assets/fonts/beau.ttf'),
+        'Lato-Bold': require('../../assets/fonts/Lato-Bold.ttf'),
+        'Lato-Regular': require('../../assets/fonts/Lato-Regular.ttf'),
+    });
 
     return (
         <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("Sell")}>
@@ -25,10 +32,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#F7F7F7",
         padding: 10,
         borderWidth: 0.5,
-        borderColor: "#E1E1E1"
+        borderColor: "#ECECEC",
     },
     estPrice: {
-        fontSize: 8
+        fontSize: 8,
+        fontFamily: "Lato-Regular",
     },
     topContainer: {
         alignItems: "flex-end",
@@ -47,7 +55,7 @@ const styles = StyleSheet.create({
     },
     name: {
         fontSize: 10,
-        fontWeight: "bold"
+        fontFamily: "Lato-Bold",
     }
 })
 

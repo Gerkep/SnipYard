@@ -9,9 +9,12 @@ import diorlogo from "../../assets/brands/dior/diorlogoblack.png"
 import lvlogo from "../../assets/brands/louisvuitton/lvlogoblack.png"
 
 const Upcoming = () => {
+
     return (
         <View style={styles.page}>
-            <PageName name="UPCOMING"/>
+            <View style={styles.headerContainer}>
+                <PageName name="UPCOMING"/>
+            </View>
             <ScrollView showsVerticalScrollIndicator={false} >
             <DropDay day="Today"/>
             <DropContainer name="B23 High-Top Sneaker" date="Today 9:00 AM" image={shoe} logo={diorlogo}/>
@@ -26,6 +29,9 @@ const Upcoming = () => {
 export default Upcoming;
 
 const styles = StyleSheet.create({
+    headerContainer: {
+        marginLeft: 20
+    },
     page: {
         paddingTop: 60,
         flex: 1

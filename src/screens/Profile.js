@@ -25,6 +25,8 @@ const Profile = () => {
 
     const [loaded] = useFonts({
         'beau': require('../../assets/fonts/beau.ttf'),
+        'Lato-Regular': require('../../assets/fonts/Lato-Regular.ttf'),
+        'Lato-Black': require('../../assets/fonts/Lato-Black.ttf'),
       });
 
       if (!loaded) {
@@ -63,18 +65,26 @@ const Profile = () => {
             </View>
             {option == "all" ?
                 <View style={styles.optionsContainer}>
-                    <TouchableOpacity onPress={() => setOption("all")} style={styles.optionSelected}><Text>ALL ITEMS</Text></TouchableOpacity>
-                    <TouchableOpacity onPress={() => setOption("listed")} style={styles.option}><Text style={{color: "#A8A8A8"}}>LISTED</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => setOption("all")} style={styles.optionSelected}>
+                        <Text style={{fontFamily: "Lato-Regular"}}>ALL ITEMS</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setOption("listed")} style={styles.option}>
+                        <Text style={{color: "#A8A8A8", fontFamily: "Lato-Regular"}}>LISTED</Text>
+                    </TouchableOpacity>
                 </View>
                 :
                 <View style={styles.optionsContainer}>
-                    <TouchableOpacity onPress={() => setOption("all")} style={styles.option}><Text style={{color: "#A8A8A8"}}>ALL ITEMS</Text></TouchableOpacity>
-                    <TouchableOpacity onPress={() => setOption("listed")} style={styles.optionSelected}><Text>LISTED</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => setOption("all")} style={styles.option}>
+                        <Text style={{color: "#A8A8A8", fontFamily: "Lato-Regular"}}>ALL ITEMS</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setOption("listed")} style={styles.optionSelected}>
+                        <Text style={{fontFamily: "Lato-Regular"}}>LISTED</Text>
+                    </TouchableOpacity>
                 </View>
             }
             <FlatList 
                 numColumns={2}
-                showsHorizontalScrollIndicator={false} 
+                showsVerticalScrollIndicator={false} 
                 contentContainerStyle={styles.itemsContainer} 
                 keyExtractor={category => category.price} 
                 data={products} 
@@ -131,10 +141,11 @@ const styles = StyleSheet.create({
        marginHorizontal: 20
     },
     label: {
-        fontSize: 10
+        fontSize: 12,
+        fontFamily: "Lato-Regular",
     },
     statsNumber: {
-        fontWeight: "900",
+        fontFamily: "Lato-Black",
         fontSize: 25
 
     },
