@@ -50,7 +50,7 @@ const ShippingInfo = () => {
             <View style={styles.propsContainer}>
                 <SummaryProps owner="gerkep07" condition="New" size="45 EU"/>
             </View>
-            <ActionButton text="BUY NOW" action={() => navigation.navigate("ThankYou")} icon={buyIcon}/>
+            <ActionButton text="BUY NOW" action={() => navigation.navigate("PurchaseSuccess")} icon={buyIcon}/>
             </ScrollView>
         </View>
     )

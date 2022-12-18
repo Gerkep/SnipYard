@@ -1,97 +1,57 @@
-import {Text, StyleSheet, View, Image, FlatList, TouchableOpacity} from "react-native";
-import profilePic from "../../assets/profile.png";
-import messageIcon from "../../assets/messageIcon.png";
-import moreIcon from "../../assets/moreIcon.png";
-import emptyStarIcon from "../../assets/emptyStarIcon.png";
-import fullStarIcon from "../../assets/fullStarIcon.png";
-import { useState } from "react";
+import {StyleSheet, ScrollView, View, Animated, TouchableOpacity, Image} from "react-native";
+import { useState, useRef, useEffect } from "react";
 import ProfileProductPreview from "../components/ProfileProductPreview";
 import lvjacket from "../../assets/lvjacket.png";
 import diorjacket from "../../assets/diorjacket.png";
 import shoe from "../../assets/shoe.png";
-import lvpants from "../../assets/lvpants.png";
-import { useFonts } from 'expo-font';
+import prophere from "../../assets/prophere.png";
+import ProfileHeader from "../components/ProfileHeader";
+import ProfileNavbar from "../components/ProfileNavbar";
+import { db } from "../firebase/config";
+import { collection, getDocs } from "firebase/firestore";
 
-const products = 
-[
-    {price: "234", brand: "Louis Pants", image: lvpants}, {price: "244", brand: "Louis Vouitton Jacket", image: lvjacket}, 
-    {price: "134", brand: "Dior Winter Jacket", image: diorjacket}, {price: "534", brand: "B23 High-Top Sneaker", image: shoe}, 
-    {price: "634", brand: "DIOR", image: diorjacket}
-]
 
 const Profile = () => {
 
-    const [option, setOption] = useState("all");
+    const [displayAll, setDisplayAll] = useState(true);
+    const [items, setItems] = useState([]);
+    const scrollOffsetY = useRef(new Animated.Value(0)).current;
 
-    const [loaded] = useFonts({
-        'beau': require('../../assets/fonts/beau.ttf'),
-        'Lato-Regular': require('../../assets/fonts/Lato-Regular.ttf'),
-        'Lato-Black': require('../../assets/fonts/Lato-Black.ttf'),
-      });
+    const fetchItems = async () => {
+        let fetchedItems = [];
+        const querySnapshot = await getDocs(collection(db, "Users", "piotrg2003@gmail.com", "ownedItems"));
+        querySnapshot.forEach((doc) => {
+            fetchedItems.push(doc.data());
+        });
+        console.log(fetchedItems)
+        setItems(fetchedItems);
+    }
 
-      if (!loaded) {
-        return null;
-      }
+    useEffect(() => {
+        fetchItems();
+    }, []);
 
     return (
-        <View style={styles.page}>
-            <View style={styles.profileContainer}>
-                <View style={styles.actoionsContainer}>
-                    <TouchableOpacity><Image resizeMode="contain" style={styles.actionIcon} source={messageIcon}/></TouchableOpacity>
-                    <TouchableOpacity><Image resizeMode="contain" style={styles.actionIcon} source={moreIcon}/></TouchableOpacity>
-                </View>
-                <Image style={styles.profilePic} source={profilePic}/>
-                    <Text style={styles.name}>Louis Adams</Text>
-                <View style={styles.statsContainer}>
-                    <View style={styles.stat}>
-                        <Text style={styles.label}>Total items</Text>
-                        <Text style={styles.statsNumber}>6</Text>
-                    </View>
-                    <View style={styles.stat}>
-                        <Text style={styles.label}>Rating</Text>
-                        <View style={styles.starsContainer}>
-                            <Image style={styles.star} source={fullStarIcon}/>
-                            <Image style={styles.star} source={fullStarIcon}/>
-                            <Image style={styles.star} source={fullStarIcon}/>
-                            <Image style={styles.star} source={fullStarIcon}/>
-                            <Image style={styles.star} source={emptyStarIcon}/>
-                        </View>
-                    </View>
-                    <View style={styles.stat}>
-                        <Text style={styles.label}>Total sales</Text>
-                        <Text style={styles.statsNumber}>2</Text>
-                    </View>
-                </View>
-            </View>
-            {option == "all" ?
-                <View style={styles.optionsContainer}>
-                    <TouchableOpacity onPress={() => setOption("all")} style={styles.optionSelected}>
-                        <Text style={{fontFamily: "Lato-Regular"}}>ALL ITEMS</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setOption("listed")} style={styles.option}>
-                        <Text style={{color: "#A8A8A8", fontFamily: "Lato-Regular"}}>LISTED</Text>
-                    </TouchableOpacity>
-                </View>
-                :
-                <View style={styles.optionsContainer}>
-                    <TouchableOpacity onPress={() => setOption("all")} style={styles.option}>
-                        <Text style={{color: "#A8A8A8", fontFamily: "Lato-Regular"}}>ALL ITEMS</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setOption("listed")} style={styles.optionSelected}>
-                        <Text style={{fontFamily: "Lato-Regular"}}>LISTED</Text>
-                    </TouchableOpacity>
-                </View>
-            }
-            <FlatList 
+        <View style={{flex: 1}}>
+            <ProfileNavbar animHeaderValue={scrollOffsetY} name="Louis Adams"/>
+            <ScrollView 
+                scrollEventThrottle={16}
+                onScroll={Animated.event(
+                    [{ nativeEvent: { contentOffset: { y: scrollOffsetY}}}],
+                    {useNativeDriver: false}
+                )}
                 numColumns={2}
                 showsVerticalScrollIndicator={false} 
-                contentContainerStyle={styles.itemsContainer} 
-                keyExtractor={category => category.price} 
-                data={products} 
-                renderItem={({item}) => (
-                    <ProfileProductPreview price={item.price} image={item.image} brand={item.brand}/>
-                )} 
-            />            
+            >
+            <ProfileHeader animHeaderValue={scrollOffsetY} displayAll={displayAll} onOptionChange={() => setDisplayAll(!displayAll)}/>
+            <View style={styles.itemsContainer}>
+                {items.map((item) => {
+                    return (
+                        <ProfileProductPreview price={item.price} image={item.imageURL} brand={item.brandName}/>
+                    );
+                })}
+            </View>
+            </ScrollView>
         </View>
     )
 }
@@ -100,17 +60,6 @@ const styles = StyleSheet.create({
     page: {
         paddingTop: 40,
         flex: 1
-    },
-    actionIcon: {
-        width: 25,
-        height: 25,
-        marginLeft: 20
-    },
-    actoionsContainer: {
-        position: "absolute",
-        right: 14,
-        top: 0,
-        flexDirection: "row"
     },
     profileContainer: {
         width: "100%",
@@ -173,6 +122,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingVertical: 10,
         marginHorizontal: 45,
+    },
+    itemsContainer: {
+        width: "100%",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        zIndex: 0,
     }
 })
 

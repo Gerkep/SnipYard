@@ -1,9 +1,9 @@
 import { Image, StyleSheet } from "react-native";
-import shoe from "../../assets/diorjacket.png";
+import prophere from "../../assets/prophere.png";
 
 const ProductBigPreview = () => {
     return (
-        <Image style={styles.image} resizeMode="contain" source={shoe}/>
+        <Image style={styles.image} resizeMode="contain" source={prophere}/>
     )
 }
 

@@ -1,15 +1,6 @@
 import {View, Text, StyleSheet, TouchableOpacity, Image} from "react-native";
-import { useFonts } from 'expo-font';
 
 const CategoryIcon = ({title, icon}) => {
-
-    const [loaded] = useFonts({
-        'Lato-Bold': require('../../assets/fonts/Lato-Bold.ttf'),
-      });
-
-      if (!loaded) {
-        return null;
-      }
 
     return (
         <View style={styles.container}>

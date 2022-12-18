@@ -1,15 +1,6 @@
 import {TouchableOpacity, Text, StyleSheet, Image} from "react-native";
-import { useFonts } from 'expo-font';
 
 const ActionButton = ({text, icon, action}) => {
-
-    const [loaded] = useFonts({
-        'beau': require('../../assets/fonts/beau.ttf'),
-      });
-
-      if (!loaded) {
-        return null;
-      }
 
     return (
         <TouchableOpacity onPress={action} style={styles.button}>

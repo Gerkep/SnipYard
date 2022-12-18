@@ -2,6 +2,8 @@ import {Text, Image, TouchableOpacity, StyleSheet, View} from "react-native";
 import searchIcon from "../../assets/searchIcon.png";
 
 const ProductProps = ({owner, size, condition, invoice}) => {
+
+
     return (
         <View style={styles.propsContainer}>
             {owner &&
@@ -46,15 +48,17 @@ const styles = StyleSheet.create({
     },
     prop: {
         marginHorizontal: 20,
-        marginVertical: 10
+        marginVertical: 10,
+        alignItems: 'center'
     },
     label: {
         fontSize: 14,
-        color: "#777777"
+        color: "#777777",
+        fontFamily: "Lato-Regular"
     },
     value: {
         fontSize: 14,
-        fontWeight: 'bold'
+        fontFamily: "Lato-Bold"
     },
     icon: {
         width: 14,

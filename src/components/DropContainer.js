@@ -1,17 +1,6 @@
 import {Text, StyleSheet, Image, View, TouchableOpacity } from "react-native";
-import { useFonts } from "expo-font";
 
 const DropContainer = ({name, date, image, logo}) => {
-
-    const [loaded] = useFonts({
-        'beau': require('../../assets/fonts/beau.ttf'),
-        'Lato-Bold': require('../../assets/fonts/Lato-Bold.ttf'),
-        'Lato-Regular': require('../../assets/fonts/Lato-Regular.ttf'),
-    });
-
-      if (!loaded) {
-        return null;
-      }
 
     return (
         <View style={styles.container}>

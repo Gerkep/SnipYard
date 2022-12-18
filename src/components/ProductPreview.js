@@ -1,23 +1,13 @@
 import {View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import shoeImage from "../../assets/lvjacket.png";
 import { useNavigation } from "@react-navigation/native";
-import { useFonts } from "expo-font";
 
 const ProductPreview = ({price, image}) => {
 
     const navigation = useNavigation();
-    const [loaded] = useFonts({
-        'beau': require('../../assets/fonts/beau.ttf'),
-        'Lato-Regular': require('../../assets/fonts/Lato-Regular.ttf'),
-      });
-
-      if (!loaded) {
-        return null;
-      }
 
     return (
         <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("Product")}>
-                <Image style={styles.image} source={image}/>
+                <Image resizeMode="contain" style={styles.image} source={{uri:image}}/>
                 <View style={styles.details}>
                     <Text style={styles.price}>${price}</Text>
                 </View>

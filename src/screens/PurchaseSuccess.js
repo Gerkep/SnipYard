@@ -1,19 +1,11 @@
 import { View, StyleSheet, Text, Image } from "react-native"
 import ShipmentIcon from "../../assets/shipmentIcon.png";
 import jacket from "../../assets/diorjacket.png"
-import { useFonts } from 'expo-font';
 import ActionButton from "../components/ActionButton";
 import buyIcon from "../../assets/buyIcon.png";
 
 const ThankYou = () => {
-    const [loaded] = useFonts({
-        'beau': require('../../assets/fonts/beau.ttf'),
-        'Lato-Regular': require('../../assets/fonts/Lato-Regular.ttf'),
-      });
 
-      if (!loaded) {
-        return null;
-      }
 
     return (
        <View>

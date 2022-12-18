@@ -19,8 +19,8 @@ const Product = () => {
             <ProductBigPreview />
             <View style={styles.productInfoContainer}>
                 <View>
-                    <Text style={styles.productName}>Dior Winter Jacket</Text>
-                    <Text style={styles.brand}>DIOR</Text>
+                    <Text style={styles.productName}>Adidas Prophere Sneaker</Text>
+                    <Text style={styles.brand}>Adidas</Text>
                 </View>
                 <View style={styles.priceInputContainer}>
                     <Text style={styles.priceLabel}>$</Text>
@@ -57,7 +57,7 @@ const Product = () => {
             </View>
          </View>
          <View style={styles.actionButtonContainer}>
-            <ActionButton text="LIST NOW" action={() => navigation.navigate("ShippingInfo")}/>
+            <ActionButton text="LIST NOW" action={() => navigation.navigate("ProductListed")}/>
          </View>
         </ScrollView>
     )
@@ -82,12 +82,14 @@ const styles = StyleSheet.create({
     },
     productName: {
         fontSize: 18,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        fontFamily: "beau"
     },
     brand: {
         fontSize: 14,
         color: "#777777",
-        marginTop: 2
+        marginTop: 2,
+                fontFamily: "beau"
     },
     priceInputContainer: {
         flexDirection: "row",

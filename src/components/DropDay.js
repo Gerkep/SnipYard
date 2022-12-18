@@ -1,16 +1,7 @@
 import {Text, StyleSheet} from "react-native";
-import { useFonts } from "expo-font";
 
 const DropDay = ({day}) => {
 
-    const [loaded] = useFonts({
-        'beau': require('../../assets/fonts/beau.ttf'),
-        'Lato-Bold': require('../../assets/fonts/Lato-Bold.ttf'),
-      });
-
-      if (!loaded) {
-        return null;
-      }
 
     return (
         <Text style={styles.text}>{day}</Text>

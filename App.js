@@ -7,9 +7,15 @@ import Profile from './src/screens/Profile';
 import Upcoming from './src/screens/Upcoming';
 import Marketplace from './src/screens/Marketplace';
 import Product from './src/screens/Product';
-import ThankYou from './src/screens/ThankYou';
+import PurchaseSuccess from './src/screens/PurchaseSuccess';
 import ShippingInfo from './src/screens/ShippingInfo';
 import Sell from './src/screens/Sell';
+import ProductListed from './src/screens/ProductListed';
+import ScanRequest from './src/screens/ScanRequest';
+import { useFonts } from 'expo-font';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "./src/firebase/config";
+import { useEffect } from 'react';
 
 const Tab = createBottomTabNavigator();
 
@@ -82,8 +88,8 @@ function Tabs() {
         }}
       />
       <Tab.Screen
-        name="ThankYou"
-        component={ThankYou}
+        name="PurchaseSuccess"
+        component={PurchaseSuccess}
         options={{
           tabBarButton: () => null,
           tabBarVisible: false,
@@ -108,6 +114,24 @@ function Tabs() {
           headerShown: false,
         }}
       />
+      <Tab.Screen
+        name="ProductListed"
+        component={ProductListed}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="ScanRequest"
+        component={ScanRequest}
+        options={{
+          tabBarButton: () => null,
+          tabBarVisible: false,
+          headerShown: false,
+        }}
+      />
     </Tab.Navigator>
   );
 }
@@ -120,6 +144,28 @@ const styles = StyleSheet.create({
 })
 
 export default function App() {
+
+    //firebase always log in
+    useEffect(() => {
+      signInWithEmailAndPassword(auth, "gerke.contact@gmail.com", "password")
+      .then((userCredential) => {
+          console.log(userCredential)
+      })
+      .catch((error) => {
+          console.log("sign in error")
+      });
+    }, [])
+    
+  const [loaded] = useFonts({
+    'beau': require('./assets/fonts/beau.ttf'),
+    'Lato-Bold': require('./assets/fonts/Lato-Bold.ttf'),
+    'Lato-Regular': require('./assets/fonts/Lato-Regular.ttf'),
+    'Lato-Black': require('./assets/fonts/Lato-Black.ttf'),
+  });
+  if(!loaded) {
+    return;
+  }
+
   return (
     <View style={{flex: 1}}>
     <StatusBar animated={true} barStyle="dark-content"/>

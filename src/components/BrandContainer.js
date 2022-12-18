@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     logo: {
         zIndex: 15,
         alignSelf: "center",
-        width: 75,
-        height: 75
+        width: 90,
+        height: 55
     }
 })
